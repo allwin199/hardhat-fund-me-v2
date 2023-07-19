@@ -33,13 +33,8 @@ contract FundMe {
         s_priceFeed = AggregatorV3Interface(_priceFeed);
     }
 
-    function getVersion() public view returns (uint256) {
-        return s_priceFeed.version();
-    }
-
     function fund() public payable {
         uint256 ethPriceInUsd = (msg.value).getConversionRate(s_priceFeed);
-        // require(ethPriceInUsd >= MINIMUM_USD, "Minimum of 5 USD is required");
         if (ethPriceInUsd < MINIMUM_USD) revert FundMe__NOT_ENOUGH_ETH();
         s_funders.push(msg.sender);
         s_addressToAmountFunded[msg.sender] += msg.value;
