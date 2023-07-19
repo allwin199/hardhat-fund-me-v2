@@ -29,7 +29,9 @@ module.exports = {
             default: 0,
         },
     },
-    solidity: "0.8.19",
+    solidity: {
+        compilers: [{ version: "0.8.18" }],
+    },
     etherscan: {
         apiKey: ETHERSCAN_API_KEY,
     },
