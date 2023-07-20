@@ -37,7 +37,9 @@ contract FundMe {
         uint256 ethPriceInUsd = (msg.value).getConversionRate(s_priceFeed);
         if (ethPriceInUsd < MINIMUM_USD) revert FundMe__NOT_ENOUGH_ETH();
         s_funders.push(msg.sender);
-        s_addressToAmountFunded[msg.sender] += msg.value;
+        s_addressToAmountFunded[msg.sender] =
+            s_addressToAmountFunded[msg.sender] +
+            msg.value;
     }
 
     function withdraw() public onlyOwner {
