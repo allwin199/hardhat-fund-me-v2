@@ -109,7 +109,7 @@ describe("FundMe", () => {
         it("Withdraw ETH from multiple funders", async () => {
             // Arrange
             const accounts = await ethers.getSigners();
-            for (let i = 0; i < 6; i++) {
+            for (let i = 1; i < 6; i++) {
                 const fundMeConnectContract = await fundMe.connect(accounts[i]);
                 await fundMeConnectContract.fund({ value: sendValue });
             }
