@@ -69,9 +69,10 @@ describe("FundMe", () => {
         // before owner can withdraw, there should be atleast some money
         it("Reverts if withdraw is not called by owner", async () => {
             const accounts = await ethers.getSigners();
-            const fundMeNewUser = await fundMe.connect(accounts[1]);
+            const attacker = accounts[1];
+            const attackerConnectedContract = await fundMe.connect(attacker);
             await expect(
-                fundMeNewUser.withdraw(),
+                attackerConnectedContract.withdraw(),
             ).to.be.revertedWithCustomError(fundMe, "FundMe__NOT_OWNER");
         });
 
@@ -143,7 +144,7 @@ describe("FundMe", () => {
 
             await expect(fundMe.getFunder(0)).to.be.reverted;
 
-            for (i = 1; i < 6; i++) {
+            for (let i = 1; i < 6; i++) {
                 assert.equal(
                     await fundMe.getAddressToAmountFunded(accounts[i].address),
                     0,
